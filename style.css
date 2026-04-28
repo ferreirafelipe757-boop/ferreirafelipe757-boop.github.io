@@ -1,74 +1,9 @@
 
-@page {
-    size: A4;
-    margin: 10mm;
-}
-
-/* Corpo geral */
+@page {   size: A4;  margin: 10mm;}
 body {
     font-family: Arial, sans-serif;
-    font-size: 12px;
-    max-width: 210mm;
-    margin: auto;
+    font-size: 11px;
     background: white;
     color: black;
-}
-
-/* Títulos */
-h1 {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-h2, h3, h4 {
-    font-size: 14px;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #000;
-}
-
-/* Labels */
-label {
-    display: inline-block;
-    width: 120px;
-    font-weight: bold;
-}
-
-/* Inputs */
-input[type="text"],
-input[type="number"] {
-    width: 80px;
-    font-size: 11px;
-    padding: 2px;
-    margin-bottom: 4px;
-}
-
-/* Checkbox */
-input[type="checkbox"] {
-    transform: scale(0.8);
-    margin-right: 3px;
-}
-
-/* Perícias */
-input[type="checkbox"] + label {
-    width: 160px;
-}
-
-/* Textareas */
-textarea {
-    width: 100%;
-    height: 60px;
-    font-size: 11px;
-    margin-bottom: 8px;
-}
-
-/* Reduz espaçamento */
-br {
-    line-height: 4px;
-}
-
-/* Inputs lado a lado */
-input[type="number"] + input[type="number"] {
-    margin-left: 5px;
-}
+    max-width: 210mm;
+    margin: auto; }
