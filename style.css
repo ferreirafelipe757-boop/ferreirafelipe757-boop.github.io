@@ -35,14 +35,18 @@ h4 {
     border-radius: 6px;
     page-break-inside: avoid;}
 
-.b,
-.linha,
+.b{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 4px;}
+
 .pericias {
     display: flex;
     align-items: center;
     gap: 5px;
-    margin-bottom: 4px;
-}
+    margin-bottom: 4px;}
 
 /* =========================
    LABELS
