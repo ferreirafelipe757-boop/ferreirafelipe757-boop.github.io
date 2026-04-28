@@ -6,7 +6,8 @@ body {
     background: white;
     color: black;
     max-width: 210mm;
-    margin: auto; }
+    margin: auto; 
+font-family: 'MedievalSharp', cursive;}
 body {
     display: grid;
     grid-template-columns: 1fr 1fr;
