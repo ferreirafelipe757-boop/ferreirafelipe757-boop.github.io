@@ -1,65 +1,65 @@
 
+
 @page {
     size: A4;
-    margin: 8mm;}
+    margin: 8mm;
+}
 body {
-    width: 194mm;
-    margin: auto;
-    background-color: #e8dcc2;
-    color: #2b1d0e;
-    font-family: Arial, sans-serif;
-    font-size: 11px;}
-h1 {
-    font-family: 'MedievalSharp', cursive;
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #5a2e0f;
-    border-bottom: 3px solid #5a2e0f;
-    padding-bottom: 5px;}
+   width: 194mm;
+   margin: auto;
+   background-color: #e8dcc2;
+   color: #2b1d0e;
+   font-family: Arial, sans-serif;
+   font-size: 11px;
 
-h2,
-h3,
-h4 {
-    font-family: 'MedievalSharp', cursive;
-    color: #5a2e0f;
-    margin-top: 0;
-    margin-bottom: 6px;
-    border-bottom: 1px solid #8b6a3d;
-    padding-bottom: 2px;}
-.a {
+
+   display: grid;
+   grid-template-columns: 60% 40%;
+   gap: 6px;
+}
+
+.informacoes {
     border: 2px solid #5a2e0f;
     background-color: #f4ecd8;
     padding: 8px;
-    margin-bottom: 8px;
     border-radius: 6px;
-    page-break-inside: avoid;}
 
-.b{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 3px;
-    margin-bottom: 4px;}
-
-.pericias {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-bottom: 4px;}
-
-/* =========================
-   LABELS
-========================= */
-
-label {
+    flex-direction: column;
+    gap: 4px;
+}
+.atr label {
+    width: 26px;
+    min-width: 26px;
     font-weight: bold;
-    min-width: 110px;
+}
+.atr-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-/* =========================
-   INPUTS
-========================= */
+.atr-linha {
+    display: flex;
+    gap: 7px;
+    justify-content: space-between;
+}
+
+.atr {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+}
+
+.atr input[type="number"] {
+    width: 30px;
+    text-align:center;
+}
+label {
+    font-weight: bold;
+    min-width: 80px;
+}
 
 input[type="text"],
 input[type="number"] {
@@ -68,34 +68,119 @@ input[type="number"] {
     padding: 2px 4px;
     border-radius: 4px;
     font-size: 10px;
-    color: #2b1d0e;
 }
-
-/* Inputs normais */
-
-.b input[type="text"] {
+.inf input[type="text"],
+.inf input[type="number"] {
     width: 120px;
 }
 
-.b input[type="number"] {
-    width: 55px;
+.point {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.point input[type="number"] {
+    width: 30px;
+    text-align: center;
+}
+.point span {
+    font-weight: bold;
 }
 
-/* Inputs de perícia */
+
+.geral input {
+    width: 100px;
+}
+
+.point span {
+    font-weight: bold;
+} 
+
+.a {
+    border: 2px solid #5a2e0f;
+    background-color: #f4ecd8;
+    padding: 8px;
+    border-radius: 6px;
+
+    display: flex;
+    flex-direction:column;
+    gap: 4px;}
+.b {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 3px;
+}
+    
+.pericias {
+    display: grid;
+    grid-template-columns: 15px 1fr 45px 50px;
+    align-items: center;
+    gap: 3px;
+    margin-bottom: 2px;
+}
+
+.pericias input[type="checkbox"] {
+    transform: scale(0.9);
+    margin: 0;
+}
+
+.pericias input[type="number"] {
+    width: 45px;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'MedievalSharp', cursive;
+    text-align: center;
+    font-size: 22px;
+    margin: 0 0 6px 0;
+    color: #5a2e0f;
+    border-bottom: 2px solid #5a2e0f;
+    padding-bottom: 4px;
+}
+
+h2, h3, h4 {
+    font-family: 'MedievalSharp', cursive;
+    color: #5a2e0f;
+    margin: 4px 0;
+    border-bottom: 1px solid #8b6a3d;
+}
+
+label {
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.pericias label {
+    min-width: 140px;
+}
+
+input[type="text"],
+input[type="number"] {
+    border: 1px solid #6b4a26;
+    background-color: #fffdf7;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+
+input[type="text"] {
+    width: 120px;
+}
+
+input[type="number"] {
+    width: 60px;
+}
 
 .pericias input[type="number"] {
     width: 45px;
 }
 
-/* Checkbox */
-
 input[type="checkbox"] {
     transform: scale(0.9);
 }
 
-/* =========================
-   TEXTAREAS
-========================= */
 
 textarea {
     width: 100%;
@@ -105,83 +190,34 @@ textarea {
     resize: none;
     padding: 5px;
     font-size: 10px;
-    margin-bottom: 6px;
     box-sizing: border-box;
 }
 
-/* Área menor */
+textarea:nth-of-type(1) { height: 60px; }   /* ataques */
+textarea:nth-of-type(2) { height: 120px; }  /* características */
+textarea:nth-of-type(3) { height: 140px; }  /* habilidades */
+textarea:nth-of-type(4) { height: 70px; }   /* equipamentos */
 
-h4 + textarea {
-    height: 45px;
-}
-
-/* Características */
-
-textarea:nth-of-type(2) {
-    height: 120px;
-}
-
-/* Habilidades */
-
-textarea:nth-of-type(3) {
-    height: 140px;
-}
-
-/* Equipamentos */
-
-textarea:nth-of-type(4) {
-    height: 60px;
-}
-
-/* =========================
-   VIDA / MANA
-========================= */
-
-span {
-    font-weight: bold;
-    font-size: 14px;
-}
-
-/* =========================
-   PERÍCIAS
-========================= */
-
-.pericias label {
-    min-width: 150px;
-}
-
-/* =========================
-   EFEITO AO CLICAR
-========================= */
 
 input:focus,
 textarea:focus {
     outline: 1px solid #a36b2c;
 }
 
-/* =========================
-   IMPRESSÃO
-========================= */
 
 @media print {
-
     body {
         background: white;
     }
 
-    .a {
+    .a, .pericias {
         break-inside: avoid;
     }
-
-
-
-
-
-
-
-
-
-
+    .informacoes {
+    width: 100%;       
+    height: 100%;       
+    max-width: 100%;    
+    box-sizing: border-box;}}
 
 
 
