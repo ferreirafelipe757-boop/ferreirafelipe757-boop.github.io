@@ -1,13 +1,12 @@
 
 @page {   size: A4;  margin: 10mm;}
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'MedievalSharp', cursive;
     font-size: 11px;
     background: white;
     color: black;
     max-width: 210mm;
-    margin: auto; 
-font-family: 'MedievalSharp', cursive;}
+    margin: auto;}
 body {
     display: grid;
     grid-template-columns: 1fr 1fr;
