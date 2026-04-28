@@ -11,61 +11,75 @@
 <body>
 
  
- <div class="a">
- <h1> Informacoes De Personagem </h1>
-<div class="b">
- <label>Nome</label>
-    <input type="text">
-</div>
- <div class="b">
- <label>Raça</label> 
-     <input type="text">
-</div>
- <div class="b">
- <label>Origem</label>
-    <input type="text">
-</div>
- <div class="b">
- <label>classe</label>
-    <input type="text">
-</div>
- <div class="b">
- <label>level</label>
-    <input type="number">
-</div>
- <div class="b">
- <label>Divindade</label>
+ <div class="informacoes">
+
+
+<h1> Informacoes De Personagem </h1>
+<div class="inf">
+<label>Nome</label>
    <input type="text">
-  </div>
+</div>
+<div class="inf">
+<label>Raça</label>
+    <input type="text">
+</div>
+<div class="inf">
+<label>Origem</label>
+   <input type="text">
+</div>
+<div class="inf">
+<label>classe</label>
+   <input type="text">
+</div>
+<div class="inf">
+<label>level</label>
+   <input type="number">
+</div>
+<div class="inf">
+<label>Divindade</label>
+  <input type="text">
  </div>
-  <div class="a">
 <h2> atributos </h2>
 
-<div class="b"> <label>força</label> <input type="number"> </div>
-<div class="b"> <label>destreza</label> <input type="number"> </div>
-<div class="b"><label>constituiçao</label> <input type="number"> </div>
-<div class="b"> <label>inteligencia</label> <input type="number"> </div>
-<div class="b"><label>sabedoria</label> <input type="number"> </div>
-<div class="b"> <label>carisma</label> <input type="number"> </div>
-   </div>
-<div class="a">
-  <div class="b">
-     <label>Vida</label>
-     <input type="number">
-     <span>/</span>
-     <input type="number">
+<div class="atr-container">
+
+  <div class="atr-linha">
+    <div class="atr"><label>for</label><input type="number"></div>
+    <div class="atr"><label>des</label><input type="number"></div>
+    <div class="atr"><label>con</label><input type="number"></div>
   </div>
-   <div class="b">
-     <label>Mana</label>
-      <input type="number">
-     <span>/</span>
-     <input type="number">
-    </div>
-    <div class="b">
-     <label>CA</label>
-     <input type="number">
-    </div>
+
+  <div class="atr-linha">
+    <div class="atr"><label>int</label><input type="number"></div>
+    <div class="atr"><label>sab</label><input type="number"></div>
+    <div class="atr"><label>car</label><input type="number"></div>
+  </div>
+
 </div>
+ <div class="point">
+    <label>Vida</label>
+    <input type="number">
+    <span>/</span>
+    <input type="number">
+ </div>
+  <div class="point">
+    <label>Mana</label>
+     <input type="number">
+    <span>/</span>
+    <input type="number">
+   </div>
+   <div class="geral">
+    <label>CA</label>
+    <input type="number">
+   </div>
+   <div class="geral"><label>carga maxima</label>
+ <input type="text"></div>
+ <div class="geral"> <label>carga atual</label>
+ <input type="text"></div>
+ <div class="geral"><label> movimento </label>
+ <input type="text"></div>
+</div>
+
 
  <div class="a">
  <h3> pericias </h3>
@@ -162,16 +176,7 @@
   <div class="b"><label> movimento </label>
   <input type="text"></div>
 
- <div class="pericias">
-
-  <input type="checkbox">
-
-  <label>Acrobacia (DES)</label>
-  <input type="number" placeholder="DES">
-  <input type="number" placeholder="Bônus">
-  <input type="number" placeholder="Total">
-</div>
-   
+ 
 </body>
   
 </html>
