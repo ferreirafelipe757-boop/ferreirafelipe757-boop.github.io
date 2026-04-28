@@ -1,81 +1,74 @@
 
-body {
-    background: #1c1c1c;
-    color: #f0f0f0;
-    font-family: Georgia, serif;
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+@page {
+    size: A4;
+    margin: 10mm;
 }
 
+/* Corpo geral */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    max-width: 210mm;
+    margin: auto;
+    background: white;
+    color: black;
+}
 
+/* Títulos */
 h1 {
     text-align: center;
-    color: #d4af37;
-    border-bottom: 3px solid #d4af37;
-    padding-bottom: 10px;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
-
 
 h2, h3, h4 {
-    color: #d4af37;
-    margin-top: 25px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #000;
 }
 
-
+/* Labels */
 label {
     display: inline-block;
-    width: 170px;
+    width: 120px;
     font-weight: bold;
 }
 
-
+/* Inputs */
 input[type="text"],
 input[type="number"] {
-    width: 130px;
-    padding: 5px;
-    margin-bottom: 8px;
-    border-radius: 5px;
-    border: none;
-    background: #2a2a2a;
-    color: white;
+    width: 80px;
+    font-size: 11px;
+    padding: 2px;
+    margin-bottom: 4px;
 }
 
-
+/* Checkbox */
 input[type="checkbox"] {
-    margin-right: 5px;
+    transform: scale(0.8);
+    margin-right: 3px;
 }
 
+/* Perícias */
 input[type="checkbox"] + label {
-    width: 220px;
+    width: 160px;
 }
 
+/* Textareas */
 textarea {
     width: 100%;
-    height: 120px;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    background: #2a2a2a;
-    color: white;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    resize: vertical;
+    height: 60px;
+    font-size: 11px;
+    margin-bottom: 8px;
 }
 
-
-input[type="number"] + input[type="number"] {
-    margin-left: 10px;
-}
-
-
-input:focus, textarea:focus {
-    outline: 2px solid #d4af37;
-}
-
-
+/* Reduz espaçamento */
 br {
-    line-height: 10px;
+    line-height: 4px;
+}
+
+/* Inputs lado a lado */
+input[type="number"] + input[type="number"] {
+    margin-left: 5px;
 }
