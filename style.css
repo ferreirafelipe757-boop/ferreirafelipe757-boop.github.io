@@ -1,5 +1,4 @@
 
-
 @page {
     size: A4;
     margin: 8mm;
@@ -56,11 +55,6 @@ body {
     width: 30px;
     text-align:center;
 }
-label {
-    font-weight: bold;
-    min-width: 80px;
-}
-
 input[type="text"],
 input[type="number"] {
     border: 1px solid #6b4a26;
@@ -146,42 +140,20 @@ h2, h3, h4 {
     margin: 4px 0;
     border-bottom: 1px solid #8b6a3d;
 }
-
 label {
-    font-weight: bold;
-    min-width: 100px;
-}
-
+    font-weight: bold;}
 .pericias label {
     min-width: 140px;
 }
-
-input[type="text"],
 input[type="number"] {
-    border: 1px solid #6b4a26;
-    background-color: #fffdf7;
-    padding: 2px 4px;
-    border-radius: 4px;
-    font-size: 10px;
+    width: 40px;
 }
-
-input[type="text"] {
-    width: 120px;
-}
-
-input[type="number"] {
-    width: 60px;
-}
-
 .pericias input[type="number"] {
     width: 45px;
 }
-
 input[type="checkbox"] {
     transform: scale(0.9);
 }
-
-
 textarea {
     width: 100%;
     border: 1px solid #6b4a26;
@@ -192,33 +164,7 @@ textarea {
     font-size: 10px;
     box-sizing: border-box;
 }
-
-textarea:nth-of-type(1) { height: 60px; }   /* ataques */
-textarea:nth-of-type(2) { height: 120px; }  /* características */
-textarea:nth-of-type(3) { height: 140px; }  /* habilidades */
-textarea:nth-of-type(4) { height: 70px; }   /* equipamentos */
-
-
-input:focus,
-textarea:focus {
-    outline: 1px solid #a36b2c;
-}
-
-
-@media print {
-    body {
-        background: white;
-    }
-
-    .a, .pericias {
-        break-inside: avoid;
-    }
-    .informacoes {
-    width: 100%;       
-    height: 100%;       
-    max-width: 100%;    
-    box-sizing: border-box;}}
-
-
-
-
+textarea:nth-of-type(1) { height: 60px; }
+textarea:nth-of-type(2) { height: 120px; }
+textarea:nth-of-type(3) { height: 140px; }
+textarea:nth-of-type(4) { height: 70px; }
