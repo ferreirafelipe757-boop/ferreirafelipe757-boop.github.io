@@ -1,170 +1,228 @@
 
-@page {
-    size: A4;
-    margin: 8mm;
-}
 body {
-   width: 194mm;
-   margin: auto;
-   background-color: #e8dcc2;
-   color: #2b1d0e;
-   font-family: Arial, sans-serif;
-   font-size: 11px;
-
-
-   display: grid;
-   grid-template-columns: 60% 40%;
-   gap: 6px;
-}
-
-.informacoes {
-    border: 2px solid #5a2e0f;
-    background-color: #f4ecd8;
-    padding: 8px;
-    border-radius: 6px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-.atr label {
-    width: 26px;
-    min-width: 26px;
-    font-weight: bold;
-}
-.atr-container {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.atr-linha {
-    display: flex;
-    gap: 7px;
-    justify-content: space-between;
-}
-
-.atr {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex: 1;
-}
-
-.atr input[type="number"] {
-    width: 30px;
-    text-align:center;
-}
-input[type="text"],
-input[type="number"] {
-    border: 1px solid #6b4a26;
-    background-color: #fffdf7;
-    padding: 2px 4px;
-    border-radius: 4px;
-    font-size: 10px;
-}
-.inf input[type="text"],
-.inf input[type="number"] {
-    width: 120px;
-}
-
-.point {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.point input[type="number"] {
-    width: 30px;
-    text-align: center;
-}
-.point span {
-    font-weight: bold;
-}
-
-
-.geral input {
-    width: 100px;
-}
-
-.point span {
-    font-weight: bold;
-} 
-
-.a {
-    border: 2px solid #5a2e0f;
-    background-color: #f4ecd8;
-    padding: 8px;
-    border-radius: 6px;
-
-    display: flex;
-    flex-direction:column;
-    gap: 4px;}
-.b {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 3px;
-}
-    
-.pericias {
-    display: grid;
-    grid-template-columns: 15px 1fr 45px 50px;
-    align-items: center;
-    gap: 3px;
-    margin-bottom: 2px;
-}
-
-.pericias input[type="checkbox"] {
-    transform: scale(0.9);
+    background-color: #e8dcc2;
+    font-family: 'Times New Roman', Times, serif;
     margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #332211;
+}
+#controles-sistema {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+.coluna-esquerda {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaço exato e controlado entre atributos e habilidades */
 }
 
-.pericias input[type="number"] {
-    width: 45px;
-    text-align: center;
+/* Configura a nova coluna da direita no Grid principal */
+.coluna-direita {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaço exato entre perícias e magias */
+}
+.ficha {
+    background-color: #f4ecd8; /* Sua cor escolhida! */
+    width: 210mm;  /* Largura exata do papel A4 */
+    min-height: 297mm; /* Altura exata do papel A4 */
+    padding: 9mm; /* Margem */
+    box-sizing: border-box;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra elegante na tela */
+    
+    /* Grid de duas colunas para organizar o layout interno */
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px;
+    align-items: start; /* faz as coisa subi */
+}
+h1, h2 {
+    color: #8b0000;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid #8b5a2b;
+    margin-top: 0;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+input[type="text"], input[type="number"], textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #8b5a2b;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #221100;
+}
+input:focus, textarea:focus {
+    outline: none;
+    border-bottom: 2px solid #a62a2a;
+}
+/* posocionamento personagem */
+.personagem {
+    grid-column: 1 / -1; 
+    display: grid;
+    /* 3 linhas de campos (Label + Input), totalizando 6 colunas por linha */
+    grid-template-columns: auto 1fr auto 1fr auto 1fr;
+    gap: 15px 10px; /* 15px de espaço entre linhas, 10px entre colunas */
+    align-items: center;
+    margin-bottom: 20px;
+     background: rgba(0, 0, 0, 0.03);/* Um fundo sutil para isolar o topo */
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #8b5a2b;
+}
+.personagem h1 {
+    grid-column: 1 / -1; 
+    margin: 0;
+    margin-bottom: 5px;
 }
 
-h1 {
-    font-family: 'MedievalSharp', cursive;
-    text-align: center;
-    font-size: 22px;
-    margin: 0 0 6px 0;
-    color: #5a2e0f;
-    border-bottom: 2px solid #5a2e0f;
-    padding-bottom: 4px;
-}
-
-h2, h3, h4 {
-    font-family: 'MedievalSharp', cursive;
-    color: #5a2e0f;
-    margin: 4px 0;
-    border-bottom: 1px solid #8b6a3d;
-}
-label {
-    font-weight: bold;}
-.pericias label {
-    min-width: 140px;
-}
-input[type="number"] {
-    width: 40px;
-}
-.pericias input[type="number"] {
-    width: 45px;
-}
-input[type="checkbox"] {
-    transform: scale(0.9);
-}
-textarea {
+.personagem input {
     width: 100%;
-    border: 1px solid #6b4a26;
-    background-color: #fffdf7;
-    border-radius: 5px;
-    resize: none;
-    padding: 5px;
-    font-size: 10px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+}
+/* posocionamento atributos */
+.atributos {
+    background: rgba(139, 90, 43, 0.04); 
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(139, 90, 43, 0.3);
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide em duas colunas perfeitas de 50% */
+    gap: 10px 20px; 
+    align-items: start; /* Alinha o topo das duas colunas para ficarem retinhas */
+    height: fit-content;
+}
+.atributos h2 {
+    grid-column: 1 / -1;
+    margin: 0;
+    margin-bottom: 12px;
+}
+.atributo {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Nome na esquerda, caixinha preenchendo o resto */
+    gap: 6px 8px;
+    align-items: center;
+}
+.status {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Nome na esquerda, caixinha preenchendo o resto */
+    gap: 6px 8px;
+    align-items: center;
+}
+.atributos input[type="number"] {
+    width: 45px;
+    text-align: center;
+    font-weight: bold;
+    padding: 2px;
+}
+.campo-composto {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.campo-composto input[type="number"] {
+    width: 38px !important; /* Tamanho exato para não estourar a linha */
+    text-align: center;
+}
+/* pericias */
+.pericias {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+     background: rgba(139, 90, 43, 0.04); 
+     border: 1px solid rgba(139, 90, 43, 0.3);
+
+}
+.pericia {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed rgba(139, 90, 43, 0.3);
+    padding-bottom: 2px;
+}
+
+.pericia label {
+    flex-grow: 1;
+    margin-left: 5px;
+}
+.pericia input[type="number"] {
+    width: 35px;
+    text-align: center;
+    border-bottom: 1px solid #8b5a2b;
+    margin-left: 5px;
+}
+.pericia input[readonly] {
+    color: #8b0000;
+    background: rgba(139, 90, 43, 0.1);
+}
+.pericia {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed rgba(139, 90, 43, 0.3);
+    padding-bottom: 2px;
+}
+.pericia label {
+    flex-grow: 1;
+    margin-left: 5px;
+}
+.pericia input[type="number"] {
+    width: 35px;
+    text-align: center;
+    border-bottom: 1px solid #8b5a2b;
+    margin-left: 5px;
+}
+/* espaco dehabilidades */
+.habilidades {
+   
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(139, 90, 43, 0.04);
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid rgba(139, 90, 43, 0.3);
+    height: fit-content; /* Faz a caixa ter apenas o tamanho necessário */
+}
+.habilidade_2 {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(139, 90, 43, 0.04);
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid rgba(139, 90, 43, 0.3);
+    margin-top: 15px; /* Desgruda um pouco da caixa de perícias */
+}
+.habilidades textarea, .habilidade_2 textarea {
+    width: 100%;
+    height: 150px; /* Tamanho consideravelmente maior para Ataques e Itens */
+    resize: vertical; /* Permite ao jogador esticar para baixo se precisar de mais espaço */
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(139, 90, 43, 0.4);
+    border-radius: 4px;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #332211;
+    line-height: 1.4;
     box-sizing: border-box;
 }
-textarea:nth-of-type(1) { height: 60px; }
-textarea:nth-of-type(2) { height: 120px; }
-textarea:nth-of-type(3) { height: 140px; }
-textarea:nth-of-type(4) { height: 70px; }
+.habilidades textarea.maior, .habilidade_2 textarea.maior {
+    height: 280px;
+}
+
