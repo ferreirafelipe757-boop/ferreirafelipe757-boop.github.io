@@ -216,3 +216,6 @@ input:focus, textarea:focus {
 .habilidades textarea.maior, .habilidade_2 textarea.maior {
     height: 280px;
 }
+#caracteristicas {
+    height: 330px; /* Você pode aumentar ou diminuir esse número até alinhar perfeitamente! */
+}
