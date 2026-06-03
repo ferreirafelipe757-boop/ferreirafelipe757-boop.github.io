@@ -225,4 +225,45 @@ input:focus, textarea:focus {
 .habilidades textarea.maior, .habilidade_2 textarea.maior {
     height: 280px;
 }
+/* ==========================================
+   MÁGICA PARA CELULAR (RESPONSIVIDADE)
+   ========================================== */
 
+/* 1. Ajuste global para evitar que coisas passem do limite da tela */
+* {
+    box-sizing: border-box;
+}
+
+.ficha {
+    width: 100%;
+    max-width: 1200px; /* Evita que no PC ela fique esticada demais */
+    margin: 0 auto;
+    padding: 15px;
+}
+
+/* 2. O Gatilho: Ativa apenas em telas menores que 768px (celulares e tablets) */
+@media (max-width: 768px) {
+    
+    /* Força o container principal a alinhar as coisas verticalmente */
+    .ficha {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Força as colunas a ocuparem 100% da largura do celular, uma embaixo da outra */
+    .coluna-esquerda, 
+    .coluna-direita {
+        width: 100% !important;
+        margin: 0 0 20px 0; /* Adiciona um espaço embaixo de cada bloco */
+    }
+
+    /* Ajusta as áreas de texto (ataques, itens) para não quebrarem a tela */
+    textarea {
+        width: 100%;
+    }
+
+    /* Se as perícias ou atributos ficarem muito esmagados, garante que usem o espaço todo */
+    .pericia, .atributo {
+        width: 100%;
+    }
+}
