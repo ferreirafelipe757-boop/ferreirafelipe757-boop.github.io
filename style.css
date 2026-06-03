@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-/* 1. Trava o fundo da página inteira no mesmo tamanho (850px) do celular */
 /* 1. O fundo agora ocupa a tela toda no PC, mas mantém a trava para o celular */
 html, body {
     margin: 0;
