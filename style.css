@@ -1,19 +1,22 @@
 
-body {
-    background-color: #e8dcc2;
-    font-family: 'Times New Roman', Times, serif;
+/* 1. Trava o fundo da página inteira e pinta tudo para não sobrar espaço branco */
+html, body {
     margin: 0;
+    padding: 0;
+    min-width: 1000px; /* Usa min-width para garantir que nada encolha além da ficha */
+    overflow-x: hidden;
+    background-color: #e8dcc2; 
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* 2. Mantém o seu visual original e a organização da ficha */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    color: #332211;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #332211;
-
-    margin: 0;
-    padding: 0;
-    width: 1000px;
-    overflow-x: hidden;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
 }
 #controles-sistema {
     display: flex;
