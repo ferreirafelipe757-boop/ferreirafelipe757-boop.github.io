@@ -5,11 +5,12 @@
 }
 
 /* 1. Trava o fundo da página inteira no mesmo tamanho (850px) do celular */
+/* 1. O fundo agora ocupa a tela toda no PC, mas mantém a trava para o celular */
 html, body {
     margin: 0;
     padding: 0;
-    width: 850px; 
-    min-width: 850px; 
+    width: 100%;       /* ALTERADO: Agora o fundo estica 100% no monitor do PC */
+    min-width: 850px;  /* Mantém a trava de segurança para o celular não esmagar a ficha */
     overflow-x: hidden;
     background-color: #e8dcc2; 
     -webkit-text-size-adjust: 100%;
