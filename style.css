@@ -26,8 +26,8 @@ body {
 #controles-sistema {
     display: flex;
     gap: 10px;
-    margin: 0 auto 20px auto;
-    width: 210mm; /* Mantém a barra de menus do tamanho exato da ficha */
+    margin: 20px auto 40px auto; /* 20px de espaço em cima, 40px embaixo para desgrudar da tela */
+    width: 210mm; 
     align-items: center;
     background: rgba(255, 255, 255, 0.2);
     padding: 10px 20px;
