@@ -49,7 +49,7 @@ body {
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 3px; 
 }
 
 h1, h2 {
