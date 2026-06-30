@@ -1,6 +1,3 @@
-// ==========================================
-// 1. O MAPA DE ATRIBUTOS E RESTRIÇÕES
-// ==========================================
 const mapaPericias = {
     'acrobacia': 'destreza', 'adestramento': 'carisma', 'atletismo': 'forca',
     'atuacao': 'carisma', 'cavalgar': 'destreza', 'conhecimento': 'inteligencia',
@@ -11,22 +8,15 @@ const mapaPericias = {
     'percepcao': 'sabedoria', 'pontaria': 'destreza', 'reflexos': 'destreza',
     'religiao': 'sabedoria', 'sobrevivencia': 'sabedoria', 'vontade': 'sabedoria'
 };
-
 const periciasSomenteTreinadas = [
     'adestramento', 'atuacao', 'conhecimento', 'guerra', 
     'jogatina', 'ladinagem', 'misticismo', 'nobreza', 
     'oficio', 'pilotagem', 'religiao'
 ];
-
-// ==========================================
-// 2. SISTEMA DE MÚLTIPLAS FICHAS (CONTROLE)
-// ==========================================
+// carregar
 let listaFichas = JSON.parse(localStorage.getItem('listaFichas')) || [{ id: '1', nome: 'Personagem 1' }];
 let fichaAtualId = localStorage.getItem('fichaAtualId') || '1';
 
-// ==========================================
-// 3. FUNÇÃO MATEMÁTICA DAS PERÍCIAS
-// ==========================================
 function atualizarPericias() {
     let nivelInput = document.getElementById('nivel').value;
     let nivel = parseInt(nivelInput) || 0;
@@ -69,9 +59,7 @@ function atualizarPericias() {
     });
 }
 
-// ==========================================
-// 4. SALVAMENTO, CARREGAMENTO E SESSÃO
-// ==========================================
+
 
 function salvarFicha() {
     let elementos = document.querySelectorAll('input, textarea');
@@ -88,7 +76,7 @@ function salvarFicha() {
     });
     
     localStorage.setItem(`ficha_${fichaAtualId}`, JSON.stringify(dadosFicha));
-
+// trocar nome
     let nomePersonagem = document.getElementById('nome').value || 'Personagem Sem Nome';
     let fichaNoArray = listaFichas.find(f => f.id === fichaAtualId);
     if (fichaNoArray && fichaNoArray.nome !== nomePersonagem) {
@@ -97,7 +85,7 @@ function salvarFicha() {
         desenharListaFichas();
     }
 }
-
+// trocar de ficha
 function carregarFicha(id) {
     fichaAtualId = id;
     localStorage.setItem('fichaAtualId', id);
@@ -128,18 +116,18 @@ function carregarFicha(id) {
     atualizarPericias();
 }
 
-// ATUALIZADO: Agora desenha o botão da ficha E o botão de apagar ao lado
+//lista de fichas
 function desenharListaFichas() {
     let container = document.getElementById('lista-de-fichas');
     container.innerHTML = ''; 
     
     listaFichas.forEach(function(ficha) {
-        // Criamos uma caixinha invisível (span) para segurar os dois botões juntos
+        // caixa
         let agrupador = document.createElement('span');
         agrupador.style.marginRight = '12px';
         agrupador.style.display = 'inline-block';
 
-        // Botão de selecionar a ficha
+        // selecao
         let botaoFicha = document.createElement('button');
         botaoFicha.innerText = ficha.nome;
         botaoFicha.className = 'botao-seletor-ficha';
@@ -154,7 +142,7 @@ function desenharListaFichas() {
             desenharListaFichas();
         };
 
-        // NOVO: Botãozinho de apagar (um "X" vermelho)
+        
         let botaoApagar = document.createElement('button');
         botaoApagar.innerText = '❌';
         botaoApagar.style.marginLeft = '4px';
@@ -162,12 +150,10 @@ function desenharListaFichas() {
         botaoApagar.title = 'Apagar esta ficha permanentemente';
         
         botaoApagar.onclick = function(evento) {
-            // Impede que o clique no "X" acabe selecionando a ficha sem querer
             evento.stopPropagation(); 
             excluirFicha(ficha.id);
         };
 
-        // Junta os botões e joga na tela
         agrupador.appendChild(botaoFicha);
         agrupador.appendChild(botaoApagar);
         container.appendChild(agrupador);
@@ -184,46 +170,37 @@ function criarNovaFicha() {
     carregarFicha(novoId);
 }
 
-// NOVA FUNÇÃO: Remove os dados e reorganiza o sistema
 function excluirFicha(id) {
     let fichaParaDeletar = listaFichas.find(f => f.id === id);
     
-    // Pergunta se o usuário tem certeza absoluta
     let confirmar = confirm(`Tem certeza que deseja apagar permanentemente a ficha de "${fichaParaDeletar.nome}"?`);
     
     if (confirmar) {
-        // 1. Deleta a gaveta de dados do LocalStorage
         localStorage.removeItem(`ficha_${id}`);
         
-        // 2. Remove o personagem da nossa lista do sistema
         listaFichas = listaFichas.filter(f => f.id !== id);
         
-        // 3. Regra de segurança: se deletou TUDO, cria uma ficha em branco pro sistema não dar erro
+        
         if (listaFichas.length === 0) {
             let novoId = Date.now().toString();
             listaFichas.push({ id: novoId, nome: 'Personagem 1' });
             fichaAtualId = novoId;
         } 
-        // Se você deletou a ficha que estava com os olhos abertos nela, te joga de volta pra primeira da lista
+        // 
         else if (fichaAtualId === id) {
             fichaAtualId = listaFichas[0].id;
         }
-        
-        // 4. Salva as novas listas limpas no LocalStorage
+      
         localStorage.setItem('listaFichas', JSON.stringify(listaFichas));
         localStorage.setItem('fichaAtualId', fichaAtualId);
-        
-        // 5. Redesenha e atualiza a tela
+    
         desenharListaFichas();
         carregarFicha(fichaAtualId);
     }
 }
 
-// ==========================================
-// 5. GATILHOS E INICIALIZAÇÃO
-// ==========================================
-
-desenharListaFichas();
+    
+desenharListaFichas();  
 carregarFicha(fichaAtualId);
 
 let todosOsCampos = document.querySelectorAll('input, textarea');
