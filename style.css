@@ -1,57 +1,33 @@
 
-/* REGRA GLOBAL DE OURO */
-* {
-    box-sizing: border-box;
-}
-
-/* 1. O fundo agora ocupa a tela toda no PC, mas mantém a trava para o celular */
-html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;       /* ALTERADO: Agora o fundo estica 100% no monitor do PC */
-    min-width: 850px;  /* Mantém a trava de segurança para o celular não esmagar a ficha */
-    overflow-x: hidden;
-    background-color: #e8dcc2; 
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
-
-/* 2. Mantém o seu visual original e a organização do texto */
 body {
-    font-family: 'Times New Roman', Times, serif;
-    color: #332211;
-    padding-top: 20px; /* Dá um espacinho no topo da tela */
+    background-color: #e8dcc2; 
+    font-family: 'Times New Roman', Times, serif; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-
-.ficha {
-    background-color: #f4ecd8; 
-    width: 210mm;  /* Largura exata do papel A4 */
-    min-height: 297mm; /* Altura exata do papel A4 */
-    margin: 0 auto; /* Centraliza a ficha na tela de fundo */
-    padding: 9mm; 
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
-    
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 15px;
-    align-items: start; 
-}
-
 .coluna-esquerda {
     grid-column: 1;
     display: flex;
     flex-direction: column;
     gap: 15px; 
 }
-
 .coluna-direita {
     grid-column: 2;
     display: flex;
     flex-direction: column;
-    gap: 3px; 
+    gap: 7px; 
 }
-
+.ficha {
+    background-color: #f4ecd8; 
+    width: 210mm;  
+    min-height: 297mm; 
+    padding: 9mm; 
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px;
+}
 h1, h2 {
     color: #8b0000;
     font-size: 1.1rem;
@@ -61,22 +37,13 @@ h1, h2 {
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
-
 input[type="text"], input[type="number"], textarea {
     background: transparent;
     border: none;
     border-bottom: 1px solid #8b5a2b;
-    font-family: inherit;
     font-size: 1rem;
-    color: #221100;
-}
 
-input:focus, textarea:focus {
-    outline: none;
-    border-bottom: 2px solid #a62a2a;
 }
-
-/* posicionamento personagem */
 .personagem {
     grid-column: 1 / -1; 
     display: grid;
@@ -84,12 +51,10 @@ input:focus, textarea:focus {
     gap: 15px 10px; 
     align-items: center;
     margin-bottom: 20px;
-    background: rgba(0, 0, 0, 0.03);
+     background: rgba(0, 0, 0, 0.03);
     padding: 15px;
-    border-radius: 4px;
     border: 1px solid #8b5a2b;
 }
-
 .personagem h1 {
     grid-column: 1 / -1; 
     margin: 0;
@@ -98,10 +63,10 @@ input:focus, textarea:focus {
 
 .personagem input {
     width: 100%;
+    box-sizing: border-box;
     padding: 2px 5px;
 }
 
-/* posicionamento atributos */
 .atributos {
     background: rgba(139, 90, 43, 0.04); 
     padding: 12px;
@@ -114,49 +79,47 @@ input:focus, textarea:focus {
     align-items: start; 
     height: fit-content;
 }
-
 .atributos h2 {
     grid-column: 1 / -1;
     margin: 0;
     margin-bottom: 12px;
 }
-
-.atributo, .status {
+.atributo {
     display: grid;
     grid-template-columns: auto 1fr; 
     gap: 6px 8px;
     align-items: center;
 }
-
+.status {
+    display: grid;
+    grid-template-columns: auto 1fr; 
+    gap: 6px 8px;
+    align-items: center;
+}
 .atributos input[type="number"] {
     width: 45px;
     text-align: center;
     font-weight: bold;
     padding: 2px;
 }
-
 .campo-composto {
     display: flex;
     align-items: center;
     gap: 4px;
 }
-
 .campo-composto input[type="number"] {
-    width: 38px !important; 
+    width: 38px ; 
     text-align: center;
 }
 
-/* pericias */
 .pericias {
     display: flex;
     flex-direction: column;
     gap: 3px;
-    background: rgba(139, 90, 43, 0.04); 
-    border: 1px solid rgba(139, 90, 43, 0.3);
-    padding: 10px;
-    border-radius: 4px;
+     background: rgba(139, 90, 43, 0.04); 
+     border: 1px solid rgba(139, 90, 43, 0.3);
+     padding: 10px;
 }
-
 .pericia {
     display: flex;
     align-items: center;
@@ -169,21 +132,17 @@ input:focus, textarea:focus {
     flex-grow: 1;
     margin-left: 5px;
 }
-
 .pericia input[type="number"] {
     width: 35px;
     text-align: center;
     border-bottom: 1px solid #8b5a2b;
     margin-left: 5px;
 }
-
 .pericia input[readonly] {
     color: #8b0000;
     background: rgba(139, 90, 43, 0.1);
 }
-
-/* espaco de habilidades */
-.habilidades, .habilidade_2 {
+.habilidades {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -193,11 +152,17 @@ input:focus, textarea:focus {
     border: 1px solid rgba(139, 90, 43, 0.3);
     height: fit-content; 
 }
-
 .habilidade_2 {
+    
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(139, 90, 43, 0.04);
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid rgba(139, 90, 43, 0.3);
     margin-top: 15px; 
 }
-
 .habilidades textarea, .habilidade_2 textarea {
     width: 100%;
     height: 150px; 
@@ -210,12 +175,11 @@ input:focus, textarea:focus {
     font-size: 0.9rem;
     color: #332211;
     line-height: 1.4;
+    box-sizing: border-box;
 }
-
-/* O ERRO FOI CORRIGIDO AQUI EMBAIXO: */
 .habilidades textarea.maior, .habilidade_2 textarea.maior {
     height: 280px;
 }
 #caracteristicas {
-    height: 453px; /* Você pode aumentar ou diminuir esse número até alinhar perfeitamente! */
+    height: 456px; 
 }
