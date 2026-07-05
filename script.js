@@ -306,3 +306,62 @@ todosOsCampos.forEach(function(campo) {
         salvarFicha();
     }); 
 });
+
+function gerarCodigoOffline() {
+    let dadosSalvos = localStorage.getItem(`ficha_${fichaAtualId}`);
+    
+    if (!dadosSalvos) {
+        alert("Erro: Não há dados na ficha atual para exportar.");
+        return;
+    }
+
+    // Transforma a ficha em texto puro comprimido
+    let codigoTexto = codificarParaBase64(dadosSalvos);
+
+    // Copia direto para a área de transferência do telemóvel
+    let inputTemporario = document.createElement("textarea");
+    inputTemporario.value = codigoTexto;
+    document.body.appendChild(inputTemporario);
+    inputTemporario.select();
+    document.execCommand("copy");
+    document.body.removeChild(inputTemporario);
+
+    alert("Código offline copiado! Agora pode enviá-lo por Bluetooth, WhatsApp ou deixar guardado num bloco de notas.");
+}
+
+function importarCodigoOffline() {
+    // Abre uma caixa no ecrã para o jogador colar o texto
+    let codigoAnalisar = prompt("Cole aqui o código de texto da ficha que recebeu:");
+    
+    if (!codigoAnalisar) return;
+
+    try {
+        let dadosJsonString = decodificarDeBase64(codigoAnalisar.trim());
+        let dadosFichaImportada = JSON.parse(dadosJsonString);
+
+        let novoId = Date.now().toString();
+        let nomeOriginal = dadosFichaImportada.nome || 'Personagem Importado';
+        let novoNome = `${nomeOriginal} (Offline)`;
+        
+        dadosFichaImportada.nome = novoNome;
+
+        // Guarda localmente na memória do dispositivo (não usa internet)
+        localStorage.setItem(`ficha_${novoId}`, JSON.stringify(dadosFichaImportada));
+
+        listaFichas.push({ id: novoId, nome: novoNome });
+        localStorage.setItem('listaFichas', JSON.stringify(listaFichas));
+
+        fichaAtualId = novoId;
+        localStorage.setItem('fichaAtualId', novoId);
+
+        alert(`Ficha de "${nomeOriginal}" importada com sucesso de forma offline!`);
+        
+        // Atualiza o ecrã
+        desenharListaFichas();
+        carregarFicha(fichaAtualId);
+
+    } catch (erro) {
+        console.error("Erro ao importar offline:", erro);
+        alert("Código inválido ou corrompido. Certifique-se de que copiou o código inteiro.");
+    }
+}
