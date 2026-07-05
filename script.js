@@ -285,17 +285,28 @@ function importarCodigoOffline() {
 // ==========================================
 // INICIALIZAÇÃO DO SISTEMA & ESCUTADORES
 // ==========================================
-desenharListaFichas();
-carregarFicha(fichaAtualId);
+// ==========================================
+// INICIALIZAÇÃO DO SISTEMA & ESCUTADORES
+// ==========================================
 
-let todosOsCampos = document.querySelectorAll('input, textarea');
-todosOsCampos.forEach(function(campo) {
-    campo.addEventListener('input', function() {
-        atualizarPericias();
-        salvarFicha();
+// Este comando garante que o código só corre depois do HTML estar 100% carregado
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // Desenha os botões e carrega a ficha
+    desenharListaFichas();
+    carregarFicha(fichaAtualId);
+
+    // Adiciona a função de "guardar automático" em todos os campos
+    let todosOsCampos = document.querySelectorAll('input, textarea');
+    todosOsCampos.forEach(function(campo) {
+        campo.addEventListener('input', function() {
+            atualizarPericias();
+            salvarFicha();
+        });
+        campo.addEventListener('change', function() {
+            atualizarPericias();
+            salvarFicha();
+        }); 
     });
-    campo.addEventListener('change', function() {
-        atualizarPericias();
-        salvarFicha();
-    }); 
+
 });
