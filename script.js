@@ -1,3 +1,6 @@
+// ==========================================
+// CONSTANTES E CONFIGURAÇÕES DO SISTEMA (T20)
+// ==========================================
 const mapaPericias = {
     'acrobacia': 'destreza', 'adestramento': 'carisma', 'atletismo': 'forca',
     'atuacao': 'carisma', 'cavalgar': 'destreza', 'conhecimento': 'inteligencia',
@@ -8,18 +11,40 @@ const mapaPericias = {
     'percepcao': 'sabedoria', 'pontaria': 'destreza', 'reflexos': 'destreza',
     'religiao': 'sabedoria', 'sobrevivencia': 'sabedoria', 'vontade': 'sabedoria'
 };
+
 const periciasSomenteTreinadas = [
     'adestramento', 'atuacao', 'conhecimento', 'guerra', 
     'jogatina', 'ladinagem', 'misticismo', 'nobreza', 
     'oficio', 'pilotagem', 'religiao'
 ];
-// carregar
+
+// ==========================================
+// ESTADO DO SISTEMA (PERSISTÊNCIA LOCAL)
+// ==========================================
 let listaFichas = JSON.parse(localStorage.getItem('listaFichas')) || [{ id: '1', nome: 'Personagem 1' }];
 let fichaAtualId = localStorage.getItem('fichaAtualId') || '1';
 
+// ==========================================
+// FUNÇÕES DE CRIPTOGRAFIA (BASE64)
+// ==========================================
+function codificarParaBase64(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+        return String.fromCharCode(parseInt(p1, 16));
+    }));
+}
+
+function decodificarDeBase64(str) {
+    return decodeURIComponent(Array.prototype.map.call(atob(str), function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
+
+// ==========================================
+// SISTEMA DE CÁLCULO DE PERÍCIAS
+// ==========================================
 function atualizarPericias() {
-    let nivelInput = document.getElementById('nivel').value;
-    let nivel = parseInt(nivelInput) || 0;
+    let nivelInput = document.getElementById('nivel');
+    let nivel = nivelInput ? (parseInt(nivelInput.value) || 0) : 0;
     let metadeNivel = Math.floor(nivel / 2);
 
     let bonusDeTreinoValor = 2;
@@ -27,12 +52,12 @@ function atualizarPericias() {
     else if (nivel >= 7) bonusDeTreinoValor = 4;
 
     let valoresAtributos = {
-        'forca': parseInt(document.getElementById('forca').value) || 0,
-        'destreza': parseInt(document.getElementById('destreza').value) || 0,
-        'constituicao': parseInt(document.getElementById('constituicao').value) || 0,
-        'inteligencia': parseInt(document.getElementById('inteligencia').value) || 0,
-        'sabedoria': parseInt(document.getElementById('sabedoria').value) || 0,
-        'carisma': parseInt(document.getElementById('carisma').value) || 0
+        'forca': parseInt(document.getElementById('forca')?.value) || 0,
+        'destreza': parseInt(document.getElementById('destreza')?.value) || 0,
+        'constituicao': parseInt(document.getElementById('constituicao')?.value) || 0,
+        'inteligencia': parseInt(document.getElementById('inteligencia')?.value) || 0,
+        'sabedoria': parseInt(document.getElementById('sabedoria')?.value) || 0,
+        'carisma': parseInt(document.getElementById('carisma')?.value) || 0
     };
 
     let linhasDePericia = document.querySelectorAll('.pericia');
@@ -40,14 +65,16 @@ function atualizarPericias() {
     linhasDePericia.forEach(function(linha) {
         let inputBonus = linha.querySelector('input[type="number"]:not([readonly])');
         let inputTotal = linha.querySelector('input[readonly]');
-        let checkboxTreino = linha.querySelector('input[type="checkbox"]'); 
+        let checkboxTreino = linha.querySelector('input[type="checkbox"]');
+
+        if (!inputBonus || !inputTotal) return;
 
         let idPericia = inputBonus.id;
         let nomeAtributo = mapaPericias[idPericia];
         let valorDoAtributo = valoresAtributos[nomeAtributo] || 0;
         let bonusExtra = parseInt(inputBonus.value) || 0;
 
-        let estaTreinado = checkboxTreino.checked;
+        let estaTreinado = checkboxTreino ? checkboxTreino.checked : false;
         let bonusTreinado = estaTreinado ? bonusDeTreinoValor : 0;
         let precisaTreino = periciasSomenteTreinadas.includes(idPericia);
 
@@ -59,8 +86,9 @@ function atualizarPericias() {
     });
 }
 
-
-
+// ==========================================
+// GESTÃO DA FICHA (SALVAR, CARREGAR, EXCLUIR)
+// ==========================================
 function salvarFicha() {
     let elementos = document.querySelectorAll('input, textarea');
     let dadosFicha = {};
@@ -76,8 +104,10 @@ function salvarFicha() {
     });
     
     localStorage.setItem(`ficha_${fichaAtualId}`, JSON.stringify(dadosFicha));
-// trocar nome
-    let nomePersonagem = document.getElementById('nome').value || 'Personagem Sem Nome';
+
+    let campoNome = document.getElementById('nome');
+    let nomePersonagem = campoNome ? (campoNome.value || 'Personagem Sem Nome') : 'Personagem Sem Nome';
+    
     let fichaNoArray = listaFichas.find(f => f.id === fichaAtualId);
     if (fichaNoArray && fichaNoArray.nome !== nomePersonagem) {
         fichaNoArray.nome = nomePersonagem;
@@ -85,7 +115,7 @@ function salvarFicha() {
         desenharListaFichas();
     }
 }
-// trocar de ficha
+
 function carregarFicha(id) {
     fichaAtualId = id;
     localStorage.setItem('fichaAtualId', id);
@@ -116,18 +146,16 @@ function carregarFicha(id) {
     atualizarPericias();
 }
 
-//lista de fichas
 function desenharListaFichas() {
     let container = document.getElementById('lista-de-fichas');
+    if (!container) return;
     container.innerHTML = ''; 
     
     listaFichas.forEach(function(ficha) {
-        // caixa
         let agrupador = document.createElement('span');
         agrupador.style.marginRight = '12px';
         agrupador.style.display = 'inline-block';
 
-        // selecao
         let botaoFicha = document.createElement('button');
         botaoFicha.innerText = ficha.nome;
         botaoFicha.className = 'botao-seletor-ficha';
@@ -142,12 +170,13 @@ function desenharListaFichas() {
             desenharListaFichas();
         };
 
-        
         let botaoApagar = document.createElement('button');
         botaoApagar.innerText = '❌';
         botaoApagar.style.marginLeft = '4px';
         botaoApagar.style.cursor = 'pointer';
         botaoApagar.title = 'Apagar esta ficha permanentemente';
+        botaoApagar.style.background = 'transparent';
+        botaoApagar.style.border = 'none';
         
         botaoApagar.onclick = function(evento) {
             evento.stopPropagation(); 
@@ -172,22 +201,19 @@ function criarNovaFicha() {
 
 function excluirFicha(id) {
     let fichaParaDeletar = listaFichas.find(f => f.id === id);
+    if (!fichaParaDeletar) return;
     
     let confirmar = confirm(`Tem certeza que deseja apagar permanentemente a ficha de "${fichaParaDeletar.nome}"?`);
     
     if (confirmar) {
         localStorage.removeItem(`ficha_${id}`);
-        
         listaFichas = listaFichas.filter(f => f.id !== id);
-        
         
         if (listaFichas.length === 0) {
             let novoId = Date.now().toString();
             listaFichas.push({ id: novoId, nome: 'Personagem 1' });
             fichaAtualId = novoId;
-        } 
-        // 
-        else if (fichaAtualId === id) {
+        } else if (fichaAtualId === id) {
             fichaAtualId = listaFichas[0].id;
         }
       
@@ -199,8 +225,74 @@ function excluirFicha(id) {
     }
 }
 
+// ==========================================
+// IMPORTAÇÃO E EXPORTAÇÃO VIA LINKS
+// ==========================================
+function gerarLinkCompartilhamento() {
+    let dadosSalvos = localStorage.getItem(`ficha_${fichaAtualId}`);
     
-desenharListaFichas();  
+    if (!dadosSalvos) {
+        alert("Erro: Não foi possível encontrar os dados da ficha atual para exportar.");
+        return;
+    }
+
+    let dadosCodificados = codificarParaBase64(dadosSalvos);
+    let urlBase = window.location.origin + window.location.pathname;
+    let linkCompleto = `${urlBase}?importar=${dadosCodificados}`;
+
+    let inputTemporario = document.createElement("input");
+    inputTemporario.value = linkCompleto;
+    document.body.appendChild(inputTemporario);
+    inputTemporario.select();
+    document.execCommand("copy");
+    document.body.removeChild(inputTemporario);
+
+    alert("Link de partilha copiado com sucesso! Agora é só colar e enviar.");
+}
+
+function verificarEImportarFichaDoLink() {
+    let parametrosUrl = new URLSearchParams(window.location.search);
+    let dadosFichaCodificados = parametrosUrl.get('importar');
+
+    if (!dadosFichaCodificados) return;
+
+    try {
+        let dadosJsonString = decodificarDeBase64(dadosFichaCodificados);
+        let dadosFichaImportada = JSON.parse(dadosJsonString);
+
+        let novoId = Date.now().toString();
+        let nomeOriginal = dadosFichaImportada.nome || 'Personagem Importado';
+        let novoNome = `${nomeOriginal} (Importado)`;
+        
+        dadosFichaImportada.nome = novoNome;
+        if (dadosFichaImportada.id) {
+            dadosFichaImportada.id = novoId;
+        }
+
+        localStorage.setItem(`ficha_${novoId}`, JSON.stringify(dadosFichaImportada));
+
+        listaFichas.push({ id: novoId, name: novoNome, nome: novoNome });
+        localStorage.setItem('listaFichas', JSON.stringify(listaFichas));
+
+        fichaAtualId = novoId;
+        localStorage.setItem('fichaAtualId', novoId);
+
+        alert(`Ficha de "${nomeOriginal}" importada com sucesso!`);
+
+    } catch (erro) {
+        console.error("Erro ao importar a ficha:", erro);
+        alert("Ops! Ocorreu um erro ao processar o link. Certifique-se de que o link de partilha está completo.");
+    } finally {
+        let urlSemParametros = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, urlSemParametros);
+    }
+}
+
+// ==========================================
+// INICIALIZAÇÃO DO SISTEMA & ESCUTADORES
+// ==========================================
+verificarEImportarFichaDoLink();
+desenharListaFichas();
 carregarFicha(fichaAtualId);
 
 let todosOsCampos = document.querySelectorAll('input, textarea');
