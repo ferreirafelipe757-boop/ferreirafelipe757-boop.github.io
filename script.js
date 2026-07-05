@@ -237,7 +237,11 @@ function gerarLinkCompartilhamento() {
     }
 
     let dadosCodificados = codificarParaBase64(dadosSalvos);
-    let urlBase = window.location.origin + window.location.pathname;
+    
+    // 👇 A MUDANÇA É AQUI: Cole o link exato do seu GitHub Pages!
+    // IMPORTANTE: Certifique-se de que termina com uma barra (/) e tem o ?importar=
+    let urlBase = "https://ferreirafelipe757-boop.github.io/"; 
+    
     let linkCompleto = `${urlBase}?importar=${dadosCodificados}`;
 
     let inputTemporario = document.createElement("input");
