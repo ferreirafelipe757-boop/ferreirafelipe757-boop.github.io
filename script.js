@@ -242,12 +242,12 @@ function gerarCodigoOffline() {
     document.execCommand("copy");
     document.body.removeChild(inputTemporario);
 
-    alert("Código offline copiado! Agora pode enviá-lo por Bluetooth, WhatsApp ou deixar guardado num bloco de notas.");
+    alert("Código copiado!");
 }
 
 function importarCodigoOffline() {
     // Abre uma caixa na tela para o jogador colar o texto
-    let codigoAnalisar = prompt("Cole aqui o código de texto da ficha que recebeu:");
+    let codigoAnalisar = prompt("Cole aqui:");
     
     if (!codigoAnalisar) return;
 
@@ -257,7 +257,7 @@ function importarCodigoOffline() {
 
         let novoId = Date.now().toString();
         let nomeOriginal = dadosFichaImportada.nome || 'Personagem Importado';
-        let novoNome = `${nomeOriginal} (Offline)`;
+        let novoNome = `${nomeOriginal} (Copia)`;
         
         dadosFichaImportada.nome = novoNome;
 
@@ -270,14 +270,14 @@ function importarCodigoOffline() {
         fichaAtualId = novoId;
         localStorage.setItem('fichaAtualId', novoId);
 
-        alert(`Ficha de "${nomeOriginal}" importada com sucesso de forma offline!`);
+        alert(`Ficha de "${nomeOriginal}" importada com sucesso!`);
         
         // Atualiza a tela
         desenharListaFichas();
         carregarFicha(fichaAtualId);
 
     } catch (erro) {
-        console.error("Erro ao importar offline:", erro);
+        console.error("Erro ao importar:", erro);
         alert("Código inválido ou corrompido. Certifique-se de que copiou o código inteiro.");
     }
 }
