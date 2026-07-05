@@ -1,6 +1,4 @@
-// ==========================================
-// CONSTANTES E CONFIGURAÇÕES DO SISTEMA (T20)
-// ==========================================
+
 const mapaPericias = {
     'acrobacia': 'destreza', 'adestramento': 'carisma', 'atletismo': 'forca',
     'atuacao': 'carisma', 'cavalgar': 'destreza', 'conhecimento': 'inteligencia',
@@ -18,9 +16,6 @@ const periciasSomenteTreinadas = [
     'oficio', 'pilotagem', 'religiao'
 ];
 
-// ==========================================
-// ESTADO DO SISTEMA (PERSISTÊNCIA LOCAL)
-// ==========================================
 let listaFichas = JSON.parse(localStorage.getItem('listaFichas')) || [{ id: '1', nome: 'Personagem 1' }];
 let fichaAtualId = localStorage.getItem('fichaAtualId') || '1';
 
@@ -216,21 +211,13 @@ function excluirFicha(id) {
         } else if (fichaAtualId === id) {
             fichaAtualId = listaFichas[0].id;
         }
-      
+       
         localStorage.setItem('listaFichas', JSON.stringify(listaFichas));
         localStorage.setItem('fichaAtualId', fichaAtualId);
     
         desenharListaFichas();
         carregarFicha(fichaAtualId);
     }
-}
-
-function codificarParaBase64(str) {
-    return btoa(unescape(encodeURIComponent(str)));
-}
-
-function decodificarDeBase64(str) {
-    return decodeURIComponent(escape(atob(str)));
 }
 
 // ==========================================
@@ -255,45 +242,60 @@ function gerarCodigoOffline() {
     document.execCommand("copy");
     document.body.removeChild(inputTemporario);
 
-    alert("Código offline copiado! Agora você pode enviá-lo por WhatsApp, Bluetooth ou salvar num bloco de notas.");
+    alert("Código offline copiado! Agora pode enviá-lo por Bluetooth, WhatsApp ou deixar guardado num bloco de notas.");
 }
 
 function importarCodigoOffline() {
     // Abre uma caixa na tela para o jogador colar o texto
-    let codigoAnalisar = prompt("Cole aqui o código de texto da ficha que você recebeu:");
+    let codigoAnalisar = prompt("Cole aqui o código de texto da ficha que recebeu:");
     
-    if (!codigoAnalisar) return; // Se a pessoa cancelar, não faz nada
+    if (!codigoAnalisar) return;
 
     try {
         let dadosJsonString = decodificarDeBase64(codigoAnalisar.trim());
         let dadosFichaImportada = JSON.parse(dadosJsonString);
 
-        // Cria uma nova ID única e adiciona "(Offline)" ao nome para identificar
         let novoId = Date.now().toString();
         let nomeOriginal = dadosFichaImportada.nome || 'Personagem Importado';
-        let novoNome = `${nomeOriginal} (Cópia)`;
+        let novoNome = `${nomeOriginal} (Offline)`;
         
         dadosFichaImportada.nome = novoNome;
 
-        // Salva localmente na memória do aplicativo (LocalStorage)
+        // Guarda localmente na memória do dispositivo (não usa internet)
         localStorage.setItem(`ficha_${novoId}`, JSON.stringify(dadosFichaImportada));
 
-        // Atualiza a lista de fichas
         listaFichas.push({ id: novoId, nome: novoNome });
         localStorage.setItem('listaFichas', JSON.stringify(listaFichas));
 
-        // Define a ficha recém-importada como a ficha atual
         fichaAtualId = novoId;
         localStorage.setItem('fichaAtualId', novoId);
 
-        alert(`Ficha de "${nomeOriginal}" importada com sucesso!`);
+        alert(`Ficha de "${nomeOriginal}" importada com sucesso de forma offline!`);
         
-        // Atualiza a tela com os novos dados
+        // Atualiza a tela
         desenharListaFichas();
         carregarFicha(fichaAtualId);
 
     } catch (erro) {
         console.error("Erro ao importar offline:", erro);
-        alert("Código inválido ou corrompido. Verifique se você copiou o texto inteiro.");
+        alert("Código inválido ou corrompido. Certifique-se de que copiou o código inteiro.");
     }
 }
+
+// ==========================================
+// INICIALIZAÇÃO DO SISTEMA & ESCUTADORES
+// ==========================================
+desenharListaFichas();
+carregarFicha(fichaAtualId);
+
+let todosOsCampos = document.querySelectorAll('input, textarea');
+todosOsCampos.forEach(function(campo) {
+    campo.addEventListener('input', function() {
+        atualizarPericias();
+        salvarFicha();
+    });
+    campo.addEventListener('change', function() {
+        atualizarPericias();
+        salvarFicha();
+    }); 
+});
