@@ -225,92 +225,17 @@ function excluirFicha(id) {
     }
 }
 
-// ==========================================
-// IMPORTAÇÃO E EXPORTAÇÃO VIA LINKS
-// ==========================================
-function gerarLinkCompartilhamento() {
-    let dadosSalvos = localStorage.getItem(`ficha_${fichaAtualId}`);
-    
-    if (!dadosSalvos) {
-        alert("Erro: Não foi possível encontrar os dados da ficha atual para exportar.");
-        return;
-    }
-
-    let dadosCodificados = codificarParaBase64(dadosSalvos);
-    
-    // 👇 A MUDANÇA É AQUI: Cole o link exato do seu GitHub Pages!
-    // IMPORTANTE: Certifique-se de que termina com uma barra (/) e tem o ?importar=
-    let urlBase = "https://ferreirafelipe757-boop.github.io/"; 
-    
-    let linkCompleto = `${urlBase}?importar=${dadosCodificados}`;
-
-    let inputTemporario = document.createElement("input");
-    inputTemporario.value = linkCompleto;
-    document.body.appendChild(inputTemporario);
-    inputTemporario.select();
-    document.execCommand("copy");
-    document.body.removeChild(inputTemporario);
-
-    alert("Link de partilha copiado com sucesso! Agora é só colar e enviar.");
+function codificarParaBase64(str) {
+    return btoa(unescape(encodeURIComponent(str)));
 }
 
-function verificarEImportarFichaDoLink() {
-    let parametrosUrl = new URLSearchParams(window.location.search);
-    let dadosFichaCodificados = parametrosUrl.get('importar');
-
-    if (!dadosFichaCodificados) return;
-
-    try {
-        let dadosJsonString = decodificarDeBase64(dadosFichaCodificados);
-        let dadosFichaImportada = JSON.parse(dadosJsonString);
-
-        let novoId = Date.now().toString();
-        let nomeOriginal = dadosFichaImportada.nome || 'Personagem Importado';
-        let novoNome = `${nomeOriginal} (Importado)`;
-        
-        dadosFichaImportada.nome = novoNome;
-        if (dadosFichaImportada.id) {
-            dadosFichaImportada.id = novoId;
-        }
-
-        localStorage.setItem(`ficha_${novoId}`, JSON.stringify(dadosFichaImportada));
-
-        listaFichas.push({ id: novoId, name: novoNome, nome: novoNome });
-        localStorage.setItem('listaFichas', JSON.stringify(listaFichas));
-
-        fichaAtualId = novoId;
-        localStorage.setItem('fichaAtualId', novoId);
-
-        alert(`Ficha de "${nomeOriginal}" importada com sucesso!`);
-
-    } catch (erro) {
-        console.error("Erro ao importar a ficha:", erro);
-        alert("Ops! Ocorreu um erro ao processar o link. Certifique-se de que o link de partilha está completo.");
-    } finally {
-        let urlSemParametros = window.location.origin + window.location.pathname;
-        window.history.replaceState({}, document.title, urlSemParametros);
-    }
+function decodificarDeBase64(str) {
+    return decodeURIComponent(escape(atob(str)));
 }
 
 // ==========================================
-// INICIALIZAÇÃO DO SISTEMA & ESCUTADORES
+// FUNÇÕES PARA COMPARTILHAMENTO 100% OFFLINE
 // ==========================================
-verificarEImportarFichaDoLink();
-desenharListaFichas();
-carregarFicha(fichaAtualId);
-
-let todosOsCampos = document.querySelectorAll('input, textarea');
-todosOsCampos.forEach(function(campo) {
-    campo.addEventListener('input', function() {
-        atualizarPericias();
-        salvarFicha();
-    });
-    campo.addEventListener('change', function() {
-        atualizarPericias();
-        salvarFicha();
-    }); 
-});
-
 function gerarCodigoOffline() {
     let dadosSalvos = localStorage.getItem(`ficha_${fichaAtualId}`);
     
@@ -322,7 +247,7 @@ function gerarCodigoOffline() {
     // Transforma a ficha em texto puro comprimido
     let codigoTexto = codificarParaBase64(dadosSalvos);
 
-    // Copia direto para a área de transferência do telemóvel
+    // Copia direto para a área de transferência do celular
     let inputTemporario = document.createElement("textarea");
     inputTemporario.value = codigoTexto;
     document.body.appendChild(inputTemporario);
@@ -330,42 +255,45 @@ function gerarCodigoOffline() {
     document.execCommand("copy");
     document.body.removeChild(inputTemporario);
 
-    alert("Código offline copiado! Agora pode enviá-lo por Bluetooth, WhatsApp ou deixar guardado num bloco de notas.");
+    alert("Código offline copiado! Agora você pode enviá-lo por WhatsApp, Bluetooth ou salvar num bloco de notas.");
 }
 
 function importarCodigoOffline() {
-    // Abre uma caixa no ecrã para o jogador colar o texto
-    let codigoAnalisar = prompt("Cole aqui o código de texto da ficha que recebeu:");
+    // Abre uma caixa na tela para o jogador colar o texto
+    let codigoAnalisar = prompt("Cole aqui o código de texto da ficha que você recebeu:");
     
-    if (!codigoAnalisar) return;
+    if (!codigoAnalisar) return; // Se a pessoa cancelar, não faz nada
 
     try {
         let dadosJsonString = decodificarDeBase64(codigoAnalisar.trim());
         let dadosFichaImportada = JSON.parse(dadosJsonString);
 
+        // Cria uma nova ID única e adiciona "(Offline)" ao nome para identificar
         let novoId = Date.now().toString();
         let nomeOriginal = dadosFichaImportada.nome || 'Personagem Importado';
-        let novoNome = `${nomeOriginal} (Offline)`;
+        let novoNome = `${nomeOriginal} (Cópia)`;
         
         dadosFichaImportada.nome = novoNome;
 
-        // Guarda localmente na memória do dispositivo (não usa internet)
+        // Salva localmente na memória do aplicativo (LocalStorage)
         localStorage.setItem(`ficha_${novoId}`, JSON.stringify(dadosFichaImportada));
 
+        // Atualiza a lista de fichas
         listaFichas.push({ id: novoId, nome: novoNome });
         localStorage.setItem('listaFichas', JSON.stringify(listaFichas));
 
+        // Define a ficha recém-importada como a ficha atual
         fichaAtualId = novoId;
         localStorage.setItem('fichaAtualId', novoId);
 
-        alert(`Ficha de "${nomeOriginal}" importada com sucesso de forma offline!`);
+        alert(`Ficha de "${nomeOriginal}" importada com sucesso!`);
         
-        // Atualiza o ecrã
+        // Atualiza a tela com os novos dados
         desenharListaFichas();
         carregarFicha(fichaAtualId);
 
     } catch (erro) {
         console.error("Erro ao importar offline:", erro);
-        alert("Código inválido ou corrompido. Certifique-se de que copiou o código inteiro.");
+        alert("Código inválido ou corrompido. Verifique se você copiou o texto inteiro.");
     }
 }
