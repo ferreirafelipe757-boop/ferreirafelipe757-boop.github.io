@@ -128,15 +128,21 @@
 
 <div class="botoes-container">
     <div id="lista-de-fichas"></div>
-    <div class="botoes-acao" style="text-align: center; margin: 20px 0 50px 0;">
+    
+    <div class="botoes-acao" style="margin-top: 30px;">
         <button onclick="criarNovaFicha()">+ Nova Ficha</button>
-       
+    </div>
+
+    <div class="botoes-acao" style="margin-top: 50px;">
+        <button onclick="gerarLinkCompartilhamento()">🔗 Partilhar por Link (Online)</button>
+    </div>
+
+    <div class="botoes-acao" style="margin-top: 20px; margin-bottom: 50px;">
+        <button onclick="gerarCodigoOffline()">📦 Copiar Código (Offline)</button>
+        <button onclick="importarCodigoOffline()">📥 Colar Código (Offline)</button>
     </div>
 </div>
-<div class="botoes-acao" style="margin-top: 20px;">
-    <button onclick="gerarCodigoOffline()">📦 Copiar Código</button>
-    <button onclick="importarCodigoOffline()">📥 Colar Código</button>
-</div>
+
 <script src="script.js"></script>
 </body>
 </html>
